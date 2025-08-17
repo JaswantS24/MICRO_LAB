@@ -1,0 +1,190 @@
+A51 MACRO ASSEMBLER  ENCODING                                                             02/05/2024 14:13:18 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\ENCODING.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE ENCODING.a51 SET(SMALL) DEBUG PRINT(.\Listings\ENCODING.lst) OBJECT(.\O
+                      bjects\ENCODING.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     
+0000                   2     ORG 0H
+0000 020100            3     LJMP MAIN
+0100                   4     ORG 100H
+0100                   5     MAIN:
+0100 3162              6     CALL TAKE_INP
+0102 319F              7     CALL QUANT_ENC
+0104 31C9              8     CALL LED_DISP
+0106 80FE              9     HERE: SJMP HERE
+0130                  10     ORG 130H
+                      11     
+0130                  12     DELAY_8s:
+0130 C000             13     PUSH 00H
+0132 7802             14     mov r0,#2
+0134 313B             15     h4: acall delay_4s
+0136 D8FC             16     loop3: djnz r0 , h4
+0138 D000             17     POP 00H
+013A 22               18     RET
+                      19     
+013B                  20     DELAY_4s:
+013B C000             21     PUSH 00H
+013D C001             22     PUSH 01H
+013F 7814             23     mov r0, #20
+0141                  24     loop:
+0141 79C7             25     mov r1,#199
+0143 314E             26     h3: acall delay_1ms
+0145 D9FC             27     loop2: djnz r1 , h3
+0147 D8F8             28     djnz r0, loop
+0149 D001             29     POP 01H
+014B D000             30     POP 00H
+014D 22               31     RET
+                      32     
+014E                  33     delay_1ms:
+014E C000             34     push 00h
+0150 7804             35     mov r0, #4
+0152 3159             36     h2: acall delay_250us
+0154 D8FC             37     djnz r0, h2
+0156 D000             38     pop 00h
+0158 22               39     ret
+                      40     
+0159                  41     delay_250us:
+0159 C000             42     push 00h
+015B 78F4             43     mov r0, #244
+015D D8FE             44     h1: djnz r0, h1
+015F D000             45     pop 00h
+0161 22               46     ret
+                      47     
+                      48     
+0162                  49     TAKE_INP:
+                      50     
+0162 75900F           51     mov p1, #0Fh
+0165 7860             52     mov r0, #60h
+0167 D294             53     setb p1.4
+0169 C295             54     clr p1.5
+016B C296             55     clr p1.6
+016D C297             56     clr p1.7
+016F 75F008           57     mov B, #08H
+A51 MACRO ASSEMBLER  ENCODING                                                             02/05/2024 14:13:18 PAGE     2
+
+0172 7901             58     mov r1, #01H
+                      59     
+0174 43900F           60     lp1: ORL p1, #0FH
+0177 3130             61     acall delay_8s
+0179 E590             62     mov a, p1
+017B C4               63     swap a
+017C C3               64     clr c
+017D 99               65     subb a, r1
+017E F6               66     mov @r0, a
+017F E590             67     mov a, p1
+0181 C4               68     swap a
+0182 04               69     inc a
+0183 C4               70     swap a
+0184 F590             71     mov p1, a
+0186 08               72     inc r0
+0187 09               73     inc r1
+0188 D5F0E9           74     djnz b, lp1
+                      75     
+018B 759000           76     mov p1, #00H
+                      77     
+018E 7860             78     mov r0, #60H
+0190 7961             79     mov r1, #61H
+0192 7A04             80     mov r2, #04H
+0194 E7               81     lp2: mov a, @r1
+0195 C4               82     swap a
+0196 26               83     add a, @r0
+0197 F6               84     mov @r0, a
+0198 08               85     inc r0
+0199 08               86     inc r0
+019A 09               87     inc r1
+019B 09               88     inc r1
+019C DAF6             89     djnz r2, lp2
+019E 22               90     ret
+                      91     
+019F                  92     QUANT_ENC:
+                      93     
+019F 7A04             94     MOV R2, #04H
+01A1 7860             95     MOV R0, #60H
+01A3 7970             96     MOV R1, #70H
+                      97     
+01A5 E6               98     CASE1: MOV A, @R0
+01A6 B4C000           99     CJNE A, #0C0H, form1
+01A9 4004            100     form1: JC CASE2
+01AB 7780            101     MOV @R1, #80H
+01AD 5014            102     JNC generic
+                     103     
+01AF B48000          104     CASE2: CJNE A, #80H, form2
+01B2 4004            105     form2: JC CASE3
+01B4 7740            106     MOV @R1, #40H
+01B6 500B            107     JNC generic
+                     108     
+01B8 B44000          109     CASE3: CJNE A, #40H, form3
+01BB 4004            110     form3: JC CASE4
+01BD 7720            111     MOV @R1, #20H
+01BF 5002            112     JNC generic
+                     113     
+01C1 7710            114     CASE4: MOV @R1, #10H
+01C3 08              115     generic: INC R0
+01C4 08              116     INC R0
+01C5 09              117     INC R1
+01C6 DADD            118     DJNZ R2, CASE1
+01C8 22              119     RET
+                     120     
+01C9                 121     LED_DISP:
+01C9 7804            122     lop2: mov r0, #04H
+01CB 7970            123     mov r1, #70H
+A51 MACRO ASSEMBLER  ENCODING                                                             02/05/2024 14:13:18 PAGE     3
+
+01CD 8790            124     lop1: mov p1, @R1
+01CF 313B            125     acall delay_4s
+01D1 09              126     inc r1
+01D2 D8F9            127     djnz r0, lop1
+01D4 80F3            128     SJMP lop2
+                     129     
+01D6 22              130     RET
+                     131     
+                     132     END
+A51 MACRO ASSEMBLER  ENCODING                                                             02/05/2024 14:13:18 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+CASE1. . . . . . .  C ADDR   01A5H   A   
+CASE2. . . . . . .  C ADDR   01AFH   A   
+CASE3. . . . . . .  C ADDR   01B8H   A   
+CASE4. . . . . . .  C ADDR   01C1H   A   
+DELAY_1MS. . . . .  C ADDR   014EH   A   
+DELAY_250US. . . .  C ADDR   0159H   A   
+DELAY_4S . . . . .  C ADDR   013BH   A   
+DELAY_8S . . . . .  C ADDR   0130H   A   
+FORM1. . . . . . .  C ADDR   01A9H   A   
+FORM2. . . . . . .  C ADDR   01B2H   A   
+FORM3. . . . . . .  C ADDR   01BBH   A   
+GENERIC. . . . . .  C ADDR   01C3H   A   
+H1 . . . . . . . .  C ADDR   015DH   A   
+H2 . . . . . . . .  C ADDR   0152H   A   
+H3 . . . . . . . .  C ADDR   0143H   A   
+H4 . . . . . . . .  C ADDR   0134H   A   
+HERE . . . . . . .  C ADDR   0106H   A   
+LED_DISP . . . . .  C ADDR   01C9H   A   
+LOOP . . . . . . .  C ADDR   0141H   A   
+LOOP2. . . . . . .  C ADDR   0145H   A   
+LOOP3. . . . . . .  C ADDR   0136H   A   
+LOP1 . . . . . . .  C ADDR   01CDH   A   
+LOP2 . . . . . . .  C ADDR   01C9H   A   
+LP1. . . . . . . .  C ADDR   0174H   A   
+LP2. . . . . . . .  C ADDR   0194H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+QUANT_ENC. . . . .  C ADDR   019FH   A   
+TAKE_INP . . . . .  C ADDR   0162H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
