@@ -1,0 +1,58 @@
+A51 MACRO ASSEMBLER  MAX                                                                  01/22/2024 02:15:23 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\MAX.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE MAX.a51 SET(SMALL) DEBUG PRINT(.\Listings\MAX.lst) OBJECT(.\Objects\MAX
+                      .obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0H
+0000 020100            2     LJMP MAIN
+0100                   3     ORG 100H
+0100                   4     MAIN:
+0100 3130              5     CALL MAX
+0102 80FE              6     HERE: SJMP HERE
+0130                   7     ORG 130H
+0130                   8     MAX:
+0130 7808              9     MOV R0,#8
+0132 A960             10     MOV R1,60H
+0134 AA61             11     MOV R2,61H
+                      12     
+0136 E9               13     MOV A,R1
+0137 D800             14     FORWARD: DJNZ R0,LOOP
+0139 9A               15     LOOP: SUBB A,R2
+013A 4006             16     JC NEW
+013C EA               17     MOV A,R2
+013D 0A               18     INC R2
+013E F570             19     MOV 70H,A
+0140 80F5             20     JMP FORWARD
+0142                  21     NEW:
+0142 E9               22     MOV A,R1
+0143 0A               23     INC R2
+0144 F570             24     MOV 70H,A
+0146 80EF             25     JMP FORWARD
+                      26     
+0148 22               27     RET
+                      28     END
+A51 MACRO ASSEMBLER  MAX                                                                  01/22/2024 02:15:23 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+FORWARD. . . . . .  C ADDR   0137H   A   
+HERE . . . . . . .  C ADDR   0102H   A   
+LOOP . . . . . . .  C ADDR   0139H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+MAX. . . . . . . .  C ADDR   0130H   A   
+NEW. . . . . . . .  C ADDR   0142H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

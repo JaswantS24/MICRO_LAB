@@ -1,0 +1,5 @@
+".\Objects\add16.obj",
+".\Objects\XORSWAP.obj",
+".\Objects\MAX.obj" 
+TO ".\Objects\lab_3" 
+PRINT(".\Listings\lab_3.m51") RAMSIZE(256) 

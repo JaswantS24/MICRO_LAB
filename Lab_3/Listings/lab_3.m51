@@ -1,0 +1,125 @@
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    01/22/2024  02:15:38  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\add16.obj, .\Objects\XORSWAP.obj, .\Objects\MAX.obj TO .\Objects\lab_3 PRINT (.\Li
+>> stings\lab_3.m51) RAMSIZE (256)
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\add16.obj (ADD16)
+  .\Objects\XORSWAP.obj (XORSWAP)
+  .\Objects\MAX.obj (MAX)
+
+
+LINK MAP OF MODULE:  .\Objects\lab_3 (ADD16)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0146H     ABSOLUTE     
+* OVERLAP * CODE    0000H     0141H     ABSOLUTE     
+* OVERLAP * CODE    0000H     0149H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\lab_3 (ADD16)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ADD16
+  C:0130H         SYMBOL        ADD16
+  C:0102H         SYMBOL        HERE
+  C:0100H         SYMBOL        MAIN
+  C:0143H         SYMBOL        NEXT
+  C:0000H         LINE#         2
+  C:0100H         LINE#         5
+  C:0102H         LINE#         6
+  C:0130H         LINE#         9
+  C:0132H         LINE#         10
+  C:0134H         LINE#         11
+  C:0136H         LINE#         12
+  C:0138H         LINE#         13
+  C:0139H         LINE#         14
+  C:013AH         LINE#         15
+  C:013CH         LINE#         16
+  C:013DH         LINE#         17
+  C:013EH         LINE#         18
+  C:0140H         LINE#         19
+  C:0141H         LINE#         20
+  C:0143H         LINE#         21
+  C:0145H         LINE#         22
+  -------         ENDMOD        ADD16
+
+  -------         MODULE        XORSWAP
+  C:0102H         SYMBOL        HERE
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/22/2024  02:15:38  PAGE 2
+
+
+  C:0100H         SYMBOL        MAIN
+  C:0130H         SYMBOL        XORSWAP
+  C:0000H         LINE#         2
+  C:0100H         LINE#         5
+  C:0102H         LINE#         6
+  C:0130H         LINE#         9
+  C:0132H         LINE#         10
+  C:0134H         LINE#         11
+  C:0136H         LINE#         12
+  C:0138H         LINE#         13
+  C:013AH         LINE#         14
+  C:013CH         LINE#         15
+  C:013EH         LINE#         16
+  C:0140H         LINE#         17
+  -------         ENDMOD        XORSWAP
+
+  -------         MODULE        MAX
+  C:0137H         SYMBOL        FORWARD
+  C:0102H         SYMBOL        HERE
+  C:0139H         SYMBOL        LOOP
+  C:0100H         SYMBOL        MAIN
+  C:0130H         SYMBOL        MAX
+  C:0142H         SYMBOL        NEW
+  C:0000H         LINE#         2
+  C:0100H         LINE#         5
+  C:0102H         LINE#         6
+  C:0130H         LINE#         9
+  C:0132H         LINE#         10
+  C:0134H         LINE#         11
+  C:0136H         LINE#         13
+  C:0137H         LINE#         14
+  C:0139H         LINE#         15
+  C:013AH         LINE#         16
+  C:013CH         LINE#         17
+  C:013DH         LINE#         18
+  C:013EH         LINE#         19
+  C:0140H         LINE#         20
+  C:0142H         LINE#         22
+  C:0143H         LINE#         23
+  C:0144H         LINE#         24
+  C:0146H         LINE#         25
+  C:0148H         LINE#         27
+  -------         ENDMOD        MAX
+
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0145H
+
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0145H
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0055H BYTE ( 4%) *
+******************************************************************************
+
+Program Size: data=8.0 xdata=0 code=976
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  01/22/2024  02:15:38  PAGE 3
+
+
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,62 @@
+A51 MACRO ASSEMBLER  LAB3_MAX                                                             01/22/2024 03:06:21 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\lab3_max.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE lab3_max.asm SET(SMALL) DEBUG PRINT(.\Listings\lab3_max.lst) OBJECT(.\O
+                      bjects\lab3_max.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0H
+0000 020100            2     LJMP MAIN
+0100                   3     ORG 100H
+0100                   4     MAIN:
+0100 3130              5     CALL MAX
+0102 80FE              6     HERE: SJMP HERE
+0130                   7     ORG 130H
+0130                   8     MAX:
+0130 7860              9     MOV R0,#60H
+0132 7961             10     MOV R1,#61H
+0134 7A08             11     MOV R2,#8
+                      12     
+0136 E6               13     MOV A,@R0
+                      14     
+0137 DA02             15     FORWARD: DJNZ R2, LOOP
+0139 80C7             16     JMP HERE
+013B                  17     LOOP: 
+013B FB               18     MOV R3,A
+013C 97               19     SUBB A, @R1
+013D 5006             20     JNC NEW
+013F E7               21     MOV A,@R1
+0140 09               22     INC R1
+0141 F570             23     MOV 70H,A
+0143 80F2             24     JMP FORWARD
+0145                  25     NEW:
+0145 EB               26     MOV A,R3
+0146 09               27     INC R1
+0147 F570             28     MOV 70H,A
+0149 80EC             29     JMP FORWARD
+                      30     
+014B 22               31     RET
+                      32     END
+A51 MACRO ASSEMBLER  LAB3_MAX                                                             01/22/2024 03:06:21 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+FORWARD. . . . . .  C ADDR   0137H   A   
+HERE . . . . . . .  C ADDR   0102H   A   
+LOOP . . . . . . .  C ADDR   013BH   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+MAX. . . . . . . .  C ADDR   0130H   A   
+NEW. . . . . . . .  C ADDR   0145H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\DSP.obj" 
+TO ".\Objects\dsp" 
+PRINT(".\Listings\dsp.m51") RAMSIZE(256) 

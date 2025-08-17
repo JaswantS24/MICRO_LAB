@@ -1,0 +1,3 @@
+".\Objects\lab3_max.obj" 
+TO ".\Objects\LAB_3_Max" 
+PRINT(".\Listings\LAB_3_Max.m51") RAMSIZE(256) 
