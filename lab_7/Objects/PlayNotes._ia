@@ -1,0 +1,1 @@
+"C:\Users\senth\Desktop\Sem_4\01. EE337\02. Experiments\05. Playing Notes\PlayNotes.ASM" SET (SMALL) DEBUG PRINT(.\Listings\PlayNotes.lst) OBJECT(.\Objects\PlayNotes.obj) EP

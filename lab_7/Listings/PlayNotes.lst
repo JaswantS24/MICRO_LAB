@@ -1,0 +1,134 @@
+A51 MACRO ASSEMBLER  PLAYNOTES                                                            02/19/2024 08:17:44 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\PlayNotes.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE C:\Users\senth\Desktop\Sem_4\01. EE337\02. Experiments\05. Playing Note
+                      s\PlayNotes.ASM SET(SMALL) DEBUG PRINT(.\Listings\PlayNotes.lst) OBJECT(.\Objects\PlayNotes.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0H
+0000 020100            2     LJMP MAIN
+0100                   3     ORG 100H
+0100                   4     MAIN:
+0100 3177              5     CALL PLAYNOTE
+0102 80FE              6     HERE: SJMP HERE
+0130                   7     ORG 130H
+                       8     
+0130                   9     delay_1961us:
+                      10     
+0130 C000             11     push 00h         
+0132 7807             12     mov r0, #7D      
+0134 316E             13     h2: acall delay_250us   
+0136 D8FC             14     djnz r0, h2                      
+0138 78C7             15     mov r0, #199D            
+013A D8FE             16     h3: djnz r0, h3  
+013C D000             17     pop 00h  
+013E 22               18     ret              
+                      19     
+013F                  20     delay_1724us:
+                      21     
+013F C000             22     push 00h         
+0141 7806             23     mov r0, #6D      
+0143 316E             24     h4: acall delay_250us   
+0145 D8FC             25     djnz r0, h4                      
+0147 78D5             26     mov r0, #213D            
+0149 D8FE             27     h5: djnz r0, h5  
+014B D000             28     pop 00h  
+014D 22               29     ret              
+                      30     
+014E                  31     delay_1538us:
+                      32     
+014E C000             33     push 00h         
+0150 7806             34     mov r0, #6D      
+0152 316E             35     h6: acall delay_250us   
+0154 D8FC             36     djnz r0, h6                      
+0156 781B             37     mov r0, #27D             
+0158 D8FE             38     h7: djnz r0, h7  
+015A D000             39     pop 00h  
+015C 22               40     ret              
+                      41     
+015D                  42     delay_1449us:
+                      43     
+015D C000             44     push 00h         
+015F 7805             45     mov r0, #5D      
+0161 316E             46     h8: acall delay_250us   
+0163 D8FC             47     djnz r0, h8                      
+0165 78BD             48     mov r0, #189D            
+0167 D8FE             49     h9: djnz r0, h9  
+0169 7800             50     mov r0, #00H  
+016B D000             51     pop 00h  
+016D 22               52     ret              
+                      53     
+016E                  54     delay_250us:
+016E C000             55     push 00h
+0170 78F4             56     mov r0, #244
+0172 D8FE             57     h1: djnz r0, h1
+A51 MACRO ASSEMBLER  PLAYNOTES                                                            02/19/2024 08:17:44 PAGE     2
+
+0174 D000             58     pop 00h
+0176 22               59     ret
+                      60     
+0177                  61     PLAYNOTE:
+0177 75900F           62     MOV P1, #0FH
+017A E590             63     loop1: MOV A, P1
+017C B40106           64     CJNE A, #01H, lab1
+017F B287             65     CPL P0.7
+0181 3130             66     acall delay_1961us
+0183 80F5             67     SJMP loop1 
+0185 B40306           68     lab1: CJNE A, #03H, lab2
+0188 B287             69     CPL P0.7
+018A 313F             70     acall delay_1724us
+018C 80EC             71     SJMP loop1
+018E B40706           72     lab2: CJNE A, #07H, lab3
+0191 B287             73     CPL P0.7
+0193 314E             74     acall delay_1538us
+0195 80E3             75     SJMP loop1
+0197 B40F06           76     lab3: CJNE A, #0FH, lab4
+019A B287             77     CPL P0.7
+019C 315D             78     acall delay_1449us
+019E 80DA             79     SJMP loop1
+01A0 C287             80     lab4: CLR P0.7
+01A2 80D6             81     SJMP loop1
+01A4 22               82     RET
+                      83     
+                      84     END
+A51 MACRO ASSEMBLER  PLAYNOTES                                                            02/19/2024 08:17:44 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY_1449US . . .  C ADDR   015DH   A   
+DELAY_1538US . . .  C ADDR   014EH   A   
+DELAY_1724US . . .  C ADDR   013FH   A   
+DELAY_1961US . . .  C ADDR   0130H   A   
+DELAY_250US. . . .  C ADDR   016EH   A   
+H1 . . . . . . . .  C ADDR   0172H   A   
+H2 . . . . . . . .  C ADDR   0134H   A   
+H3 . . . . . . . .  C ADDR   013AH   A   
+H4 . . . . . . . .  C ADDR   0143H   A   
+H5 . . . . . . . .  C ADDR   0149H   A   
+H6 . . . . . . . .  C ADDR   0152H   A   
+H7 . . . . . . . .  C ADDR   0158H   A   
+H8 . . . . . . . .  C ADDR   0161H   A   
+H9 . . . . . . . .  C ADDR   0167H   A   
+HERE . . . . . . .  C ADDR   0102H   A   
+LAB1 . . . . . . .  C ADDR   0185H   A   
+LAB2 . . . . . . .  C ADDR   018EH   A   
+LAB3 . . . . . . .  C ADDR   0197H   A   
+LAB4 . . . . . . .  C ADDR   01A0H   A   
+LOOP1. . . . . . .  C ADDR   017AH   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+PLAYNOTE . . . . .  C ADDR   0177H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

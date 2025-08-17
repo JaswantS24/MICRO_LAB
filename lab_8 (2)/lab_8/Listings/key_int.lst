@@ -1,0 +1,244 @@
+C51 COMPILER V9.60.7.0   KEY_INT                                                           03/11/2024 15:36:14 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE KEY_INT
+OBJECT MODULE PLACED IN .\Objects\key_int.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE key_int.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\k
+                    -ey_int.lst) TABS(2) OBJECT(.\Objects\key_int.obj)
+
+line level    source
+
+   1          #include <at89c5131.h>
+   2          #include "lcd.h"
+   3          #include <stdio.h>
+   4          #include <math.h>
+   5          #include <string.h>
+   6          
+   7          code unsigned char display_msg1[] = "SA(LOW)";
+   8          code unsigned char display_msg2[] = "RE";
+   9          code unsigned char display_msg3[] = "GA";
+  10          code unsigned char display_msg4[] = "MA";
+  11          code unsigned char display_msg5[] = "PA";
+  12          code unsigned char display_msg6[] = "DHA";
+  13          code unsigned char display_msg7[] = "NI";
+  14          code unsigned char display_msg8[] = "SA(HIGH)";
+  15          code unsigned char display_msg9[] = "SILENCE";
+  16          int entered_pass= 0 ;
+  17          sbit tone=P0^0;
+  18          int count_freq;
+  19          int a;
+  20          char b;
+  21          char k;
+  22          
+  23          struct Out1{
+  24            int freq;
+  25            char out[3];
+  26          } Output;
+  27          
+  28          char keypad[4][4] = { '1', '2', '3', 'A',
+  29                                '4', '5', '6', 'B',
+  30                                '7', '8', '9', 'C',
+  31                                '*', '0', '#', 'D'};
+  32          char display[9][9]={"SA(LOW)","RE","GA","MA","PA","DHA","NI","SA(HIGH)","SILENCE"};
+  33          
+  34          ///int count_dur;
+  35          
+  36          unsigned char colloc, rowloc;
+  37                                      
+  38          void Output_func(char k)
+  39          {
+  40   1        //k = keypad[rowloc][colloc];
+  41   1        switch(k)
+  42   1        {
+  43   2          case '1':
+  44   2            Output.freq = 240;
+  45   2            strcpy(Output.out, "Sa");
+  46   2            break;
+  47   2          
+  48   2          case '2':
+  49   2            Output.freq = 270;
+  50   2            strcpy(Output.out, "Re");
+  51   2            break;
+  52   2          
+  53   2          case '3':
+  54   2            Output.freq = 300;
+C51 COMPILER V9.60.7.0   KEY_INT                                                           03/11/2024 15:36:14 PAGE 2   
+
+  55   2            strcpy(Output.out, "Ga");
+  56   2            break;
+  57   2          
+  58   2          case '4':
+  59   2            Output.freq = 320;
+  60   2            strcpy(Output.out, "Ma");
+  61   2            break;
+  62   2          
+  63   2          case '5':
+  64   2            Output.freq = 360;
+  65   2            strcpy(Output.out, "Pa");
+  66   2            break;
+  67   2          
+  68   2          case '6':
+  69   2            Output.freq = 400;
+  70   2            strcpy(Output.out, "Dha");
+  71   2            break;
+  72   2          
+  73   2          case '7':
+  74   2            Output.freq = 450;
+  75   2            strcpy(Output.out, "Ni");
+  76   2            break;
+  77   2          
+  78   2          case '8':
+  79   2            Output.freq = 480;
+  80   2            strcpy(Output.out, "Sa");
+  81   2            break;
+  82   2          
+  83   2          case '9':
+  84   2            Output.freq = 0;
+  85   2            strcpy(Output.out, "Sil");
+  86   2            break;
+  87   2          
+  88   2          default:
+  89   2            Output.freq = 0;
+  90   2            strcpy(Output.out, "#$%");
+  91   2        }
+  92   1        
+  93   1        lcd_init();
+  94   1        lcd_cmd(0x80);
+  95   1        lcd_write_string(Output.out);
+  96   1        
+  97   1        
+  98   1      }
+  99          void value(int freq)
+ 100          {
+ 101   1        
+ 102   1        count_freq = (int) (- (1000000/(freq)));
+ 103   1        TL0 = count_freq&0xFF;
+ 104   1        TH0 = (count_freq>>8)&0xFF;
+ 105   1        
+ 106   1        TR0= 1;
+ 107   1      }
+ 108          void tone_note () interrupt 1
+ 109          { 
+ 110   1        tone = ~tone;
+ 111   1        TL0 = count_freq&0xFF;
+ 112   1        TH0 = (count_freq>>8)&0xFF;
+ 113   1        TR0 = 1;
+ 114   1      }
+ 115          void begin(int freq)
+ 116          {
+C51 COMPILER V9.60.7.0   KEY_INT                                                           03/11/2024 15:36:14 PAGE 3   
+
+ 117   1        TMOD = 0x01; //mode 1 timer 0 and timer 1
+ 118   1        ET0 = 1; //activate interrupts for timer 0 and timer 1
+ 119   1        EA = 1;  //activate global interrupts
+ 120   1        value(freq);
+ 121   1      }
+ 122          void music(){
+ 123   1        
+ 124   1        begin(Output.freq);
+ 125   1      }
+ 126          
+ 127          void main (void)
+ 128          {
+ 129   1        lcd_init(); 
+ 130   1        lcd_cmd(0x80);                          //Move cursor to first line
+ 131   1        msdelay(4);
+ 132   1        lcd_write_string(display_msg1);
+ 133   1        P3 = 0x0F;
+ 134   1        while(1)
+ 135   1        {
+ 136   2          do
+ 137   2          {
+ 138   3            P3 = 0x0F;
+ 139   3            colloc = P3;
+ 140   3            colloc &= 0x0F;
+ 141   3          }while(colloc != 0x0F);
+ 142   2        do
+ 143   2          
+ 144   2        { 
+ 145   3          msdelay(20);
+ 146   3          colloc = P3;
+ 147   3          colloc &= 0x0F;
+ 148   3        }while(colloc == 0x0F);
+ 149   2        
+ 150   2        while(1)
+ 151   2        {
+ 152   3          P3 = 0xEF;
+ 153   3          colloc = P3;
+ 154   3          colloc &= 0x0F;
+ 155   3          if (colloc != 0x0F)
+ 156   3          {
+ 157   4            rowloc = 0;
+ 158   4            break;
+ 159   4          }
+ 160   3          P3 = 0xDF;
+ 161   3          colloc = P3;
+ 162   3          colloc &= 0x0F;
+ 163   3          if (colloc != 0x0F)
+ 164   3          {
+ 165   4            rowloc = 1;
+ 166   4            break;
+ 167   4          }
+ 168   3          P3 = 0xBF;
+ 169   3          colloc = P3;
+ 170   3          colloc &= 0x0F;
+ 171   3          if (colloc != 0x0F)
+ 172   3          {
+ 173   4            rowloc = 2;
+ 174   4            break;
+ 175   4          }
+ 176   3          P3 = 0x7F;
+ 177   3          colloc = P3;
+ 178   3          colloc &= 0x0F;
+C51 COMPILER V9.60.7.0   KEY_INT                                                           03/11/2024 15:36:14 PAGE 4   
+
+ 179   3          rowloc = 3;
+ 180   3          break;
+ 181   3        }
+ 182   2        
+ 183   2        if (colloc == 0x0E)
+ 184   2        {entered_pass = keypad[rowloc][3];
+ 185   3          k = entered_pass;
+ 186   3          a= b-1;                         
+ 187   3          Output_func(k);
+ 188   3          music();
+ 189   3          }
+ 190   2        else if (colloc == 0x0D)
+ 191   2        {entered_pass = keypad[rowloc][2];
+ 192   3          k = entered_pass;
+ 193   3          a= b-1;                         
+ 194   3          Output_func(k);
+ 195   3          music();
+ 196   3        }
+ 197   2        else if (colloc == 0x0B)
+ 198   2        {entered_pass = keypad[rowloc][1];
+ 199   3          k = entered_pass;
+ 200   3          a= b-1;                       
+ 201   3          msdelay(4);
+ 202   3          Output_func(k);
+ 203   3          music();
+ 204   3        }
+ 205   2        else
+ 206   2        {entered_pass = keypad[rowloc][0];
+ 207   3          k = entered_pass;
+ 208   3          a= b-1;                       
+ 209   3          Output_func(k);
+ 210   3          music();
+ 211   3        }
+ 212   2        }
+ 213   1      }
+ 214          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    809    ----
+   CONSTANT SIZE    =     74    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =    112       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

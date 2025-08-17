@@ -1,0 +1,44 @@
+A51 MACRO ASSEMBLER  SUM                                                                  01/08/2024 14:44:15 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\SUM.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE SUM.a51 SET(SMALL) DEBUG PRINT(.\Listings\SUM.lst) OBJECT(.\Objects\SUM
+                      .obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0H
+0000 80FE              2     SJMP MAIN
+*** ______________________________^
+*** ERROR #A51 IN 2 (SUM.a51, LINE 2): TARGET OUT OF RANGE
+0100                   3     ORG 100H
+                       4             
+0100                   5     MAIN:
+0100 E530              6     MOV A,30H
+0102 8531F0            7     MOV B,31H
+0105 25F0              8     ADD A,B  
+0107 F533              9     MOV 33H,A
+                      10     
+0109 80FE             11     HERE: SJMP HERE
+                      12     
+                      13     END
+                             
+                                     
+A51 MACRO ASSEMBLER  SUM                                                                  01/08/2024 14:44:15 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+HERE . . . . . . .  C ADDR   0109H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 1 ERROR(S)

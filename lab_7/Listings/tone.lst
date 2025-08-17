@@ -1,0 +1,187 @@
+C51 COMPILER V9.60.7.0   TONE                                                              02/19/2024 14:53:45 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE TONE
+OBJECT MODULE PLACED IN .\Objects\tone.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE tone.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\tone
+                    -.lst) TABS(2) OBJECT(.\Objects\tone.obj)
+
+line level    source
+
+   1          #include <at89c5131.h>
+   2          sbit mybit= P1^5;
+   3          sbit out = P0^7;
+   4          unsigned char m;
+   5          
+   6          void T1(void) interrupt 3
+   7          {
+   8   1        mybit=~mybit;
+   9   1        m=m+1;
+  10   1        TL1 = 0xB0;
+  11   1        TH1 = 0x3C;
+  12   1      }
+  13          
+  14          void T0(void) interrupt 1
+  15          {
+  16   1        out=~out;
+  17   1        
+  18   1        while(m<20){
+  19   2        TL0 = 0xB9;
+  20   2        TH0 = 0xEF;
+  21   2        }
+  22   1        while(m<50 && m>19){
+  23   2          TL0 = 0x89;
+  24   2          TH0 = 0xF1;
+  25   2        }
+  26   1        while(m<90 && m>49){
+  27   2          TL0 = 0xFB;
+  28   2          TH0 = 0xF2;
+  29   2        }
+  30   1        while(m<110 && m>89){
+  31   2          TL0 = 0xCB;
+  32   2          TH0 = 0xF3;
+  33   2        }
+  34   1        while(m<150 && m>109){
+  35   2          TL0 = 0x26;
+  36   2          TH0 = 0xF5;
+  37   2        }
+  38   1        while(m<180 && m>149){
+  39   2          TL0 = 0x3C;
+  40   2          TH0 = 0xF6;
+  41   2        }
+  42   1        while(m<220 && m>179){
+  43   2          TL0 = 0x52;
+  44   2          TH0 = 0xF7;
+  45   2        }
+  46   1          while(m<240 && m>219){
+  47   2          TL0 = 0xDD;
+  48   2          TH0 = 0xF7;
+  49   2          }     
+  50   1      }
+  51          
+  52          void main(void){
+  53   1        while(m<20){
+  54   2          TMOD = 0x11;
+C51 COMPILER V9.60.7.0   TONE                                                              02/19/2024 14:53:45 PAGE 2   
+
+  55   2          TL0 = 0xB9;
+  56   2          TH0 = 0xEF;
+  57   2          TL1 = 0xB0;
+  58   2          TH1 = 0x3C;
+  59   2          ET0 = 1; //activate interrupts for both timers
+  60   2          ET1 = 1;
+  61   2          EA = 1;  //activate global interrupts
+  62   2          TR1 = 1;
+  63   2          TR0 = 1;  
+  64   2      }
+  65   1        while(m<50 && m>19){
+  66   2          TMOD = 0x11;
+  67   2          TL0 = 0x89;
+  68   2          TH0 = 0xF1;
+  69   2          TL1 = 0xB0;
+  70   2          TH1 = 0x3C;
+  71   2          ET0 = 1; //activate interrupts for both timers
+  72   2          ET1 = 1;
+  73   2          EA = 1;  //activate global interrupts
+  74   2          TR1 = 1;
+  75   2          TR0 = 1; 
+  76   2        }
+  77   1        
+  78   1        while(m<90 && m>49){
+  79   2          TMOD = 0x11;
+  80   2          TL0 = 0xFB;
+  81   2          TH0 = 0xF2;
+  82   2          TL1 = 0xB0;
+  83   2          TH1 = 0x3C;
+  84   2          ET0 = 1; //activate interrupts for both timers
+  85   2          ET1 = 1;
+  86   2          EA = 1;  //activate global interrupts
+  87   2          TR1 = 1;
+  88   2          TR0 = 1; 
+  89   2        }
+  90   1        
+  91   1        while(m<110 && m>89){
+  92   2          TMOD = 0x11;
+  93   2          TL0 = 0xCB;
+  94   2          TH0 = 0xF3;
+  95   2          TL1 = 0xB0;
+  96   2          TH1 = 0x3C;
+  97   2          ET0 = 1; //activate interrupts for both timers
+  98   2          ET1 = 1;
+  99   2          EA = 1;  //activate global interrupts
+ 100   2          TR1 = 1;
+ 101   2          TR0 = 1; 
+ 102   2        }
+ 103   1        
+ 104   1        while(m<150 && m>109){
+ 105   2          TMOD = 0x11;
+ 106   2          TL0 = 0x26;
+ 107   2          TH0 = 0xF5;
+ 108   2          TL1 = 0xB0;
+ 109   2          TH1 = 0x3C;
+ 110   2          ET0 = 1; //activate interrupts for both timers
+ 111   2          ET1 = 1;
+ 112   2          EA = 1;  //activate global interrupts
+ 113   2          TR1 = 1;
+ 114   2          TR0 = 1; 
+ 115   2        }
+ 116   1        
+C51 COMPILER V9.60.7.0   TONE                                                              02/19/2024 14:53:45 PAGE 3   
+
+ 117   1        while(m<180 && m>149){
+ 118   2          TMOD = 0x11;
+ 119   2          TL0 = 0x3C;
+ 120   2          TH0 = 0xF6;
+ 121   2          TL1 = 0xB0;
+ 122   2          TH1 = 0x3C;
+ 123   2          ET0 = 1; //activate interrupts for both timers
+ 124   2          ET1 = 1;
+ 125   2          EA = 1;  //activate global interrupts
+ 126   2          TR1 = 1;
+ 127   2          TR0 = 1; 
+ 128   2        }
+ 129   1        
+ 130   1        while(m<220 && m>179){
+ 131   2          TMOD = 0x11;
+ 132   2          TL0 = 0x52;
+ 133   2          TH0 = 0xF7;
+ 134   2          TL1 = 0xB0;
+ 135   2          TH1 = 0x3C;
+ 136   2          ET0 = 1; //activate interrupts for both timers
+ 137   2          ET1 = 1;
+ 138   2          EA = 1;  //activate global interrupts
+ 139   2          TR1 = 1;
+ 140   2          TR0 = 1; 
+ 141   2        }
+ 142   1        
+ 143   1        while(m<240 && m>219){
+ 144   2          TMOD = 0x11;
+ 145   2          TL0 = 0xDD;
+ 146   2          TH0 = 0xF7;
+ 147   2          TL1 = 0xB0;
+ 148   2          TH1 = 0x3C;
+ 149   2          ET0 = 1; //activate interrupts for both timers
+ 150   2          ET1 = 1;
+ 151   2          EA = 1;  //activate global interrupts
+ 152   2          TR1 = 1;
+ 153   2          TR0 = 1; 
+ 154   2        }
+ 155   1          
+ 156   1      }
+ 157          
+ 158          
+ 159          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    499    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
